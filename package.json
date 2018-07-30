@@ -3,9 +3,12 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
+    "@atlaskit/css-reset": "^3.0.0",
+    "emotion": "^9.2.6",
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
+    "react-emotion": "^9.2.6",
     "react-scripts": "1.1.4"
   },
   "scripts": {
