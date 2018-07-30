@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'react-emotion'
+import { Droppable } from 'react-beautiful-dnd'
 import Task from './task'
-
 
 const Container = styled('div')`
   border: 1px solid lightgrey;
@@ -19,14 +19,20 @@ const TaskList = styled('div')`
 const Column = ({ column, tasks }) => (
   <Container>
     <Title>{column.title}</Title>
-    <TaskList>
-      {tasks.map(task => <Task key={task.id} task={task} />)}
-    </TaskList>
+    <Droppable droppableId={column.id}>
+      {({ droppableProps, innerRef, placeholder }) => (
+        <TaskList innerRef={innerRef} {...droppableProps}>
+          {tasks.map((task, index) => <Task key={task.id} task={task} index={index} />)}
+          {placeholder}
+        </TaskList>
+      )}
+    </Droppable>
   </Container>
 )
 
 Column.propTypes = {
   column: PropTypes.shape({
+    id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired
   }).isRequired,
   tasks: PropTypes.arrayOf(PropTypes.shape({
