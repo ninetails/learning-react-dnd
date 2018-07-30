@@ -4,7 +4,7 @@ import styled from 'react-emotion'
 import { Draggable } from 'react-beautiful-dnd'
 
 const Container = styled('div')`
-  background-color: white;
+  background-color: ${({ isDragging }) => (isDragging ? 'lightgreen' : 'white')};
   border: 1px solid lightgrey;
   border-radius: 2px;
   margin-bottom: 8px;
@@ -13,8 +13,15 @@ const Container = styled('div')`
 
 const Task = ({ index, task }) => (
   <Draggable draggableId={task.id} index={index}>
-    {({ draggableProps, dragHandleProps, innerRef }) => (
-      <Container {...draggableProps} {...dragHandleProps} innerRef={innerRef}>{task.content}</Container>
+    {({ draggableProps, dragHandleProps, innerRef }, { isDragging }) => (
+      <Container
+        {...draggableProps}
+        {...dragHandleProps}
+        innerRef={innerRef}
+        isDragging={isDragging}
+        >
+        {task.content}
+      </Container>
     )}
   </Draggable>
 )

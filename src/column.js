@@ -13,15 +13,17 @@ const Title = styled('h3')`
   padding: 8px;
 `
 const TaskList = styled('div')`
+  background-color: ${({ isDraggingOver }) => (isDraggingOver ? 'skyblue' : 'white')};
   padding: 8px;
+  transition: background-color .2s ease;
 `
 
 const Column = ({ column, tasks }) => (
   <Container>
     <Title>{column.title}</Title>
     <Droppable droppableId={column.id}>
-      {({ droppableProps, innerRef, placeholder }) => (
-        <TaskList innerRef={innerRef} {...droppableProps}>
+      {({ droppableProps, innerRef, placeholder }, { isDraggingOver }) => (
+        <TaskList innerRef={innerRef} {...droppableProps} isDraggingOver={isDraggingOver}>
           {tasks.map((task, index) => <Task key={task.id} task={task} index={index} />)}
           {placeholder}
         </TaskList>
