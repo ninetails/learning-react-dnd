@@ -25,7 +25,10 @@ const TaskList = styled('div')`
 const Column = ({ column, tasks }) => (
   <Container>
     <Title>{column.title}</Title>
-    <Droppable droppableId={column.id}>
+    <Droppable
+      droppableId={column.id}
+      type={column.id === 'column-3' ? 'done' : 'active'}
+      >
       {({ droppableProps, innerRef, placeholder }, { isDraggingOver }) => (
         <TaskList innerRef={innerRef} {...droppableProps} isDraggingOver={isDraggingOver}>
           {tasks.map((task, index) => <Task key={task.id} task={task} index={index} />)}
