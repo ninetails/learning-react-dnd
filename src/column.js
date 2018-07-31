@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'react-emotion'
 import { Draggable, Droppable } from 'react-beautiful-dnd'
@@ -17,11 +17,25 @@ const Title = styled('h3')`
   padding: 8px;
 `
 const TaskList = styled('div')`
-  background-color: ${({ isDraggingOver }) => (isDraggingOver ? 'skyblue' : 'inherit')};
+  background-color: ${({ isDraggingOver }) => (isDraggingOver ? 'lightgrey' : 'inherit')};
   flex: 1;
   padding: 8px;
   transition: background-color .2s ease;
 `
+
+class InnerList extends PureComponent {
+  propTypes = {
+    tasks: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.string.isRequired
+    }).isRequired)
+  }
+
+  render() {
+    const { tasks } = this.props
+    return tasks.map((task, index) =>
+      <Task key={task.id} task={task} index={index} />)
+  }
+}
 
 const Column = ({ column, index, tasks }) => (
   <Draggable draggableId={column.id} index={index}>
@@ -31,7 +45,7 @@ const Column = ({ column, index, tasks }) => (
         <Droppable droppableId={column.id} type="tasks">
           {({ droppableProps, innerRef, placeholder }, { isDraggingOver }) => (
             <TaskList innerRef={innerRef} {...droppableProps} isDraggingOver={isDraggingOver}>
-              {tasks.map((task, index) => <Task key={task.id} task={task} index={index} />)}
+              <InnerList tasks={tasks} />
               {placeholder}
             </TaskList>
           )}
