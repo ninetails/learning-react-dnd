@@ -7,6 +7,9 @@ import Task from './task'
 const Container = styled('div')`
   border: 1px solid lightgrey;
   border-radius: 2px;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
   margin: 8px;
 `
 const Title = styled('h3')`
@@ -14,6 +17,7 @@ const Title = styled('h3')`
 `
 const TaskList = styled('div')`
   background-color: ${({ isDraggingOver }) => (isDraggingOver ? 'skyblue' : 'white')};
+  flex: 1;
   padding: 8px;
   transition: background-color .2s ease;
 `

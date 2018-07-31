@@ -12,23 +12,15 @@ const Container = styled('div')`
   padding: 8px;
 `
 
-const Handle = styled('div')`
-  background-color: orange;
-  border-radius: 4px;
-  height: 20px;
-  margin-right: 8px;
-  width: 20px;
-`
-
 const Task = ({ index, task }) => (
   <Draggable draggableId={task.id} index={index}>
     {({ draggableProps, dragHandleProps, innerRef }, { isDragging }) => (
       <Container
         {...draggableProps}
+        {...dragHandleProps}
         innerRef={innerRef}
         isDragging={isDragging}
         >
-        <Handle {...dragHandleProps} />
         {task.content}
       </Container>
     )}
