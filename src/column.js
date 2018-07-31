@@ -22,12 +22,12 @@ const TaskList = styled('div')`
   transition: background-color .2s ease;
 `
 
-const Column = ({ column, tasks }) => (
+const Column = ({ column, isDropDisabled, tasks }) => (
   <Container>
     <Title>{column.title}</Title>
     <Droppable
       droppableId={column.id}
-      type={column.id === 'column-3' ? 'done' : 'active'}
+      isDropDisabled={isDropDisabled}
       >
       {({ droppableProps, innerRef, placeholder }, { isDraggingOver }) => (
         <TaskList innerRef={innerRef} {...droppableProps} isDraggingOver={isDraggingOver}>
@@ -39,11 +39,16 @@ const Column = ({ column, tasks }) => (
   </Container>
 )
 
+Column.defaultProps = {
+  isDropDisabled: false
+}
+
 Column.propTypes = {
   column: PropTypes.shape({
     id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired
   }).isRequired,
+  isDropDisabled: PropTypes.bool,
   tasks: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired
   }).isRequired).isRequired
